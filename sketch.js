@@ -49,7 +49,7 @@ function preload(){
 
 
 function setup() {
-  createCanvas (windowWidth,windowHeight);
+  createCanvas (600,windowHeight);
  
   
   ground2 = createSprite(360,236);
@@ -57,7 +57,7 @@ function setup() {
   ground2.scale = 0.5; 
   //ground2Group.add(ground2);
   
-  sun = createSprite(645,60);
+  sun = createSprite(535,60);
   sun.addImage ("sun",sunImage);
   sun.scale = 1.5;
 
@@ -65,7 +65,7 @@ function setup() {
   invisibleGround2.visible = false;
   //back.scale = 10;
  
-  gameOver = createSprite(350,200);
+  gameOver = createSprite(300,200);
   gameOver.addImage ("gameOver",gameOverImage); 
   gameOver.scale = 0.4
   
@@ -79,7 +79,7 @@ function setup() {
 
   
   
-  GameOver = createSprite(350, 320);
+  GameOver = createSprite(300, 320);
   GameOver.addAnimation ("GameOver", GameOverImage);
   GameOver.scale = 0.5;
   
@@ -122,7 +122,7 @@ function draw(){
   }
 
   if(frameCount % 90===0){
-  obstacle = createSprite(700,420)
+  obstacle = createSprite(600,420)
   obstacle.addAnimation("obstacle", obstacleImage);
   obstacle.scale = 0.16;
   obstacle.velocityX = -(6 + score+1);
@@ -133,7 +133,7 @@ function draw(){
   }                        
 
   if(frameCount % 100===0){
-  banana = createSprite(700,300);
+  banana = createSprite(600,300);
   banana.addImage ("banana",bananaImage);
   banana.scale = 0.2;
   banana.lifetime = -100;
@@ -144,7 +144,7 @@ function draw(){
   }
     
       if(frameCount % 120===0){
-  orange = createSprite(700,300);
+  orange = createSprite(600,300);
   orange.addImage ("orange",orangeImage);
   orange.scale = 0.35;
   orange.lifetime = -100;
@@ -186,14 +186,7 @@ function draw(){
 }
  }
     
-  if(keyDown("space") ){
-  monkey.velocityY = -17;
- jumpSound.play();
-  }
-  
-
-    
-    if (monkey.isTouching(orangeGroup)){
+        if (monkey.isTouching(orangeGroup)){
       orangeGroup.destroyEach();
       score = score + 2;
       eatSound.play();
@@ -215,6 +208,17 @@ function draw(){
   default: break;
 }
     }
+    
+    
+  if(keyDown("space") || touches.length>0){
+  monkey.velocityY = -17;
+ jumpSound.play();
+  touches = [];
+  }
+  
+
+    
+
   
   if (monkey.isTouching(obstacleGroup)){
      obstacleGroup.destroyEach(); 
@@ -229,7 +233,7 @@ function draw(){
  // back.visible = false; 
   gameOver.visible = false;
   
-  scoreplate = createSprite(350,72);
+  scoreplate = createSprite(300,72);
   scoreplate.addImage("scoreplate", scoreplateImage);
   scoreplate.scale = 0.35
     
@@ -251,9 +255,9 @@ function draw(){
   orange.visible = false;
   ground.velocityX = 0;
    
-    if (mousePressedOver(GameOver)){
+    if (mousePressedOver(GameOver) || touches.length > 0 ){
 reset();
-      
+   touches = [];   
   
   }
   }
@@ -274,14 +278,14 @@ reset();
 
   fill("RED")
   textSize (20);
-  text("SCORE : " + score, 300, 40);
+  text("SCORE : " + score, 250, 40);
   
   textSize (20);
-  text("SURVIVAL TIME : " + survivalTime, 260, 80);
+  text("SURVIVAL TIME : " + survivalTime, 210, 80);
   
   fill("RED")
   textSize (20);
-  text("CHANCE : " + chance, 290, 120);
+  text("CHANCE : " + chance, 240, 120);
   
 }
 
